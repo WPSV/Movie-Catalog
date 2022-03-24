@@ -6,6 +6,7 @@ afterEach(() => {
   cleanup();
 })
 
+// Test if the component movie is rendering correctly
 test('<Movie /> is rendered ?', () => {
   const movieData = {
     title: "Dolores quas aperiam",
@@ -14,7 +15,6 @@ test('<Movie /> is rendered ?', () => {
     year: 2020,
     coverImage: "http://placeimg.com/640/480/business"
     }
-  render(<Movie movie={movieData} />);
-  const movieElement = screen.getByTestId("movie");
-  expect(movieElement).toBeInTheDocument();
+  const { getByTestId } = render(<Movie movie={movieData} />);
+  expect(getByTestId("movie")).toBeInTheDocument();
 })

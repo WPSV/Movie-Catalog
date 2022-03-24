@@ -80,7 +80,8 @@ const App = () => {
     }))
   }
   
-  if (isLoading) return <p style={{textAlign: 'center'}}>Loading...</p>;
+  if (isLoading) return (<p style={{textAlign: 'center'}}>Loading...</p>);
+  if (isError) return (<p style={{textAlign: 'center'}}>Something went wrong!</p>);
   return (
     <>
       <Container>
@@ -90,7 +91,6 @@ const App = () => {
           <button onClick={handleClear}>Clear</button>
         </Search>
         <Section>
-          {isError && (<p>Something went wrong!</p>)}
           {data?.map((movie) => (
             <Card key={movie.id}>
               <Movie key={movie.id} movie={movie} />
