@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+
 // Components
-import Movie from './Movie/Movie';
+import Movie from './components/Movie/Movie';
+
 // Styles
 import { Container, Search, Section, Card, Pagination } from "./App.styles";
+
 // Types
 export type MovieType = {
   id: string,
@@ -16,7 +19,7 @@ export type MovieType = {
 
 type FiltersType = {
   page: number,
-  search?: null | string,
+  search?: string,
 }
 
 // Fetch API
@@ -36,7 +39,7 @@ const App = () => {
   // States
   const [filters, setFilters] = useState<FiltersType>({
     page: 1,
-    search: null,
+    search: '',
   });
   const [search, setSearch] = useState('');
 
@@ -45,14 +48,25 @@ const App = () => {
     window.scrollTo(0, 0)
   }, [filters.page])
   
-  // Functions
-  const { data, isError } = useMovies(filters);
+  // Function to search the movies
+  const { data, isError, isLoading } = useMovies(filters);
 
   const handleSearch = () => {
-    if (!search || search === filters.search) return;
+    if (search === filters.search) return;
     setFilters({ page: 1, search });
   };
 
+  // The search bar will clear if has no data
+  useEffect(() => {
+    if (search) return;
+    handleSearch();
+  }, [search])
+
+  const handleClear = () => {
+    setSearch('');
+  }
+
+  // Functions to move next and previous page
   const handleNextPage = () => {
     setFilters(state => ({
       ...state, page: state.page + 1
@@ -66,12 +80,14 @@ const App = () => {
     }))
   }
   
+  if (isLoading) return <p style={{textAlign: 'center'}}>Loading...</p>;
   return (
     <>
       <Container>
         <Search>
-          <input id="search" type="text" placeholder="..." onChange={({target}) => setSearch(target.value)} />
+          <input type="text" placeholder="..." value={search}  onChange={({target}) => setSearch(target.value)} />
           <button onClick={handleSearch}>Search</button>
+          <button onClick={handleClear}>Clear</button>
         </Search>
         <Section>
           {isError && (<p>Something went wrong!</p>)}
