@@ -5,11 +5,16 @@ export type MovieType = {
     director: string,
     description: string,
     year: number,
-coverImage: string,
+    coverImage: string,
 }
   
 export type FiltersType = {
     page: number,
     search?: string,
+}
+
+export type Response = {
+    total: number,
+    movies: MovieType[]
 }
   

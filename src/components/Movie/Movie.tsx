@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { MovieType, FiltersType } from "../Types";
+import { MovieType, FiltersType, Response } from "../Types";
 
 // Components
 import Movie from './MovieComponent';
 
 // Styles
 import { Container, Search, Section, Card, Pagination } from "./Movie.styles";
-type Response = {
-  total: number,
-  movies: MovieType[]
-}
 
 // Fetch API
 const getMovies = async ({ page, search }: FiltersType): Promise<Response> => {
@@ -90,7 +86,7 @@ const App = () => {
           <button onClick={handleClear}>Clear</button>
         </Search>
         <Section>
-          {data?.movies.length == 0 && <p>No movies found!</p>}
+          {data?.movies.length == 0 && <p style={{textAlign: 'center', gridColumn: '2/3'}}>No movies found!</p>}
           {data?.movies.map((movie) => (
             <Card key={movie.id}>
               <Movie key={movie.id} movie={movie} />
