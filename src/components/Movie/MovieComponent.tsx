@@ -1,4 +1,4 @@
-import { MovieType } from "./Movie";
+import { MovieType } from "../Types";
 import { Img, MovieYear, Director, Description } from "./MovieComponent.styles";
 
 // Type

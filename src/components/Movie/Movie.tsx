@@ -1,27 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { MovieType, FiltersType } from "../Types";
 
 // Components
 import Movie from './MovieComponent';
 
 // Styles
 import { Container, Search, Section, Card, Pagination } from "./Movie.styles";
-
-// Types
-export type MovieType = {
-  id: string,
-  title: string,
-  director: string,
-  description: string,
-  year: number,
-  coverImage: string,
-}
-
-type FiltersType = {
-  page: number,
-  search?: string,
-}
-
 type Response = {
   total: number,
   movies: MovieType[]
